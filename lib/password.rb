@@ -1,3 +1,5 @@
+require './lib/string'
+
 class Password
   CHARACTERS = [['!','@','$','%','^','&','*','(',')'],
                 ('0'..'9').to_a,

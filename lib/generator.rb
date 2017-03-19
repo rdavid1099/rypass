@@ -69,17 +69,17 @@ class Generator
 
     def get_account_name
       print Message::Prompt.account_name
-      gets.chomp
+      STDIN.gets.chomp
     end
 
     def get_username
       print Message::Prompt.username(account)
-      gets.chomp
+      STDIN.gets.chomp
     end
 
     def get_length
       print Message::Prompt.password_length
-      length = gets.chomp.to_i
+      length = STDIN.gets.chomp.to_i
       length == 0 ? 12 : length
     end
 end
