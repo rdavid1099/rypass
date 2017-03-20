@@ -1,18 +1,16 @@
 require './config/setup'
 
 class Exec
-  def self.new_account
+  def self.new_account(params)
     gen = Generator.new
-    puts gen.create_new_account(account: ARGV[1],
-                                username: ARGV[2],
-                                length: ARGV[3])
+    puts gen.create_new_account(params)
   end
 
   def self.generate
 
   end
 
-  def self.account
+  def self.display_account
 
   end
 
@@ -43,7 +41,7 @@ class Exec
   private
     def self.dictionary
       {
-        'n' => :new, 'new' => :new,
+        'n' => :new_account, 'new' => :new_account,
         'g' => :generate, 'generate' => :generate,
         'a' => :display_account, 'account' => :display_account,
         '-a' => :account, '--account' => :account,

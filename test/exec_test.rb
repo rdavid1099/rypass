@@ -14,7 +14,7 @@ class FileItTest < TestHelper
     set_ARGV_values('n', '-a', 'test', '--username=tester', '-l', '15', '--fake=?', '--path=~/path/to/csv')
     params = Exec.set_params
 
-    assert_equal params[:action], :new
+    assert_equal params[:action], :new_account
     assert_equal params[:account], 'test'
     assert_equal params[:username], 'tester'
     assert_equal params[:length], 15

@@ -5,7 +5,7 @@ class Generator
 
   def initialize(**options)
     @password_klass = Password.new
-    @file_it = FileIt.new(options[:path])
+    @file_it = FileIt.new(options[:destination])
     @username = options[:username]
     @account = options[:account]
   end
