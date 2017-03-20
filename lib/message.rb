@@ -23,7 +23,7 @@ module Message
 
   class Prompt
     def self.account_name
-      "Enter the name of the account you are creating a username and password for\n> "
+      "Enter the name of the account connected to the username and generated password\n> "
     end
 
     def self.username(account)

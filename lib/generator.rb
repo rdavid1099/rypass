@@ -54,6 +54,7 @@ class Generator
     password_klass.generate_new(length)
   rescue
     puts Message::Error.too_many_characters
+    create_new_account(account: account, username: username)
   end
 
   private
