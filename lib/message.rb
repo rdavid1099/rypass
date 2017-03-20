@@ -34,4 +34,10 @@ module Message
       "Enter the length of the generated password (max 50)\n> "
     end
   end
+
+  class Statement
+    def self.success(password)
+      "Generated password for account: #{password}\nInformation successfully saved locally"
+    end
+  end
 end

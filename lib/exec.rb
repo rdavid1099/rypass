@@ -3,7 +3,9 @@ require './config/setup'
 class Exec
   def self.new_account(params)
     gen = Generator.new
-    puts gen.create_new_account(params)
+    password = gen.create_new_account(params)
+    puts "\n" + Message::Statement.success(password)
+    raise Interrupt
   end
 
   def self.generate
