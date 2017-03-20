@@ -33,11 +33,19 @@ module Message
     def self.password_length
       "Enter the length of the generated password (max 50)\n> "
     end
+
+    def self.save_to_existing
+      "This password is not saved to any account or username. Would you like to save it (y/n)?\n> "
+    end
   end
 
   class Statement
     def self.success(password)
       "Generated password for account: #{password}\nInformation successfully saved locally"
+    end
+
+    def self.password_generated(password)
+      "Password generated: #{password}"
     end
   end
 end

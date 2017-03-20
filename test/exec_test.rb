@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class FileItTest < TestHelper
+class ExecTest < TestHelper
   def test_it_parses_params_properly_using_index_number
     set_ARGV_values('n', '-a', 'test', '--username=tester', '-l', '15', '--fake=?', '--path=~/path/to/csv')
     index = Exec.sort_params(1)

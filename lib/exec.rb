@@ -2,14 +2,19 @@ require './config/setup'
 
 class Exec
   def self.new_account(params)
-    gen = Generator.new
-    password = gen.create_new_account(params)
+    password = Generator.new.create_new_account(params)
     puts "\n" + Message::Statement.success(password)
     raise Interrupt
   end
 
-  def self.generate
-
+  def self.generate(params)
+    password = Password.new.generate_new(params[:length] || 12)
+    puts "\n" + Message::Statement.password_generated(password)
+    if save_to_existing?
+      Generator.new.save_password(password)
+      puts "\n" + Message::Statement.success(password)
+    end
+    raise Interrupt
   end
 
   def self.display_account
@@ -38,6 +43,15 @@ class Exec
   def self.parse_params(params)
     split_params = params.split('=')
     @params[dictionary[split_params[0]]] = split_params[1] if dictionary.keys.include?(split_params[0])
+  end
+
+  def self.save_to_existing?
+    response = ''
+    until response[0] == 'y' || response[0] == 'n'
+      print Message::Prompt.save_to_existing
+      response = STDIN.gets.downcase.chomp
+    end
+    response[0] == 'y' ? true : false
   end
 
   private

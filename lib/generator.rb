@@ -13,8 +13,13 @@ class Generator
   def create_new_account(**options)
     @account = options[:account] || get_account_name
     @username = options[:username] || get_username
-    @password = generate_password options[:length] || get_length
+    @password ||= generate_password options[:length] || get_length
     save_information
+  end
+
+  def save_password(password)
+    @password = password
+    create_new_account
   end
 
   def create_new_user(new_username)
