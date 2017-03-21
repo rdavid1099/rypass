@@ -17,17 +17,34 @@ class Exec
     raise Interrupt
   end
 
-  def self.display_account
-
+  def self.display_account(params)
+    begin
+      account = Account.new(params)
+      account.send(params[:second_action])
+    rescue RuntimeError => e
+      puts e
+    ensure
+      raise Interrupt
+    end
   end
 
   def self.set_params
-    @params = Hash[action: dictionary[ARGV.first]]
-    i = 1
+    @params = Hash[action: actionary[ARGV.first]]
+    i = determine_secondary_actions
     while i < ARGV.length do
       i = sort_params(i)
     end
     @params
+  end
+
+  def self.determine_secondary_actions
+    if @params[:action] == :display_account && actionary.keys.include?(ARGV[1])
+      @params[:second_action] = actionary[ARGV[1]]
+      return 2
+    elsif @params[:action] == :display_account
+      @params[:second_action] = :all
+    end
+    1
   end
 
   def self.sort_params(i)
@@ -35,7 +52,7 @@ class Exec
       parse_params(ARGV[i])
       i += 1
     else
-      @params[dictionary[ARGV[i]]] = ARGV[i+1].to_i.zero? ? ARGV[i+1] : ARGV[i+1].to_i
+      @params[dictionary[ARGV[i]]] = ARGV[i+1].to_i.zero? ? ARGV[i+1].downcase : ARGV[i+1].to_i
       i += 2
     end
   end
@@ -57,13 +74,21 @@ class Exec
   private
     def self.dictionary
       {
-        'n' => :new_account, 'new' => :new_account,
-        'g' => :generate, 'generate' => :generate,
-        'a' => :display_account, 'account' => :display_account,
         '-a' => :account, '--account' => :account,
         '-u' => :username, '--username' => :username,
         '-p' => :destination, '--path' => :destination,
         '-l' => :length, '--length' => :length
+      }
+    end
+
+    def self.actionary
+      {
+        'n' => :new_account, 'new' => :new_account,
+        'g' => :generate, 'generate' => :generate,
+        'a' => :display_account, 'account' => :display_account,
+        '-A' => :all, '--all' => :all,
+        '-U' => :usernames, '--usernames' => :usernames,
+        '-P' => :get_password, '--get-password' => :get_password
       }
     end
 end

@@ -13,11 +13,11 @@ class GeneratorTest < TestHelper
 
   def test_it_stores_an_account_with_username
     skip if ENV['s']
-    password = gen.create_new_account(account: 'Chase', username: 'test@test.com', length: 12)
+    password = gen.create_new_account(account: 'test', username: 'test@test.com', length: 12)
+    csv = load_csv
     clean_test_csvs
 
-    assert_equal gen.find_account_for_user('test@test.com'), 'Chase'
-    assert_equal gen.find_password_for_user('test@test.com'), password
-    assert_equal gen.find_all_users_for_account('Chase'), ['test@test.com']
+    assert_equal csv[:username], ['test@test.com']
+    assert_equal csv[:password], [password]
   end
 end

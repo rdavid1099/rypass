@@ -31,30 +31,6 @@ class Generator
     end
   end
 
-  def find_all_users_for_account(account_query)
-    if account == account_query
-      [username]
-    else
-      puts Message::Error.account_not_found(account_query)
-    end
-  end
-
-  def find_account_for_user(name_query)
-    if name_query == username
-      account
-    else
-      puts Message::Error.username_not_found(name_query)
-    end
-  end
-
-  def find_password_for_user(name_query)
-    if name_query == username
-      password
-    else
-      puts Message::Error.username_not_found(name_query)
-    end
-  end
-
   def generate_password(length = 12)
     password_klass.generate_new(length)
   rescue

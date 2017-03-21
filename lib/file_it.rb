@@ -6,7 +6,8 @@ class FileIt
   def initialize(destination = nil)
     @errors = []
     @current_path = `pwd`.chomp
-    @destination = destination || File.expand_path('~/Library/RyPass')
+    destination ||= '~/Library/RyPass'
+    @destination = File.expand_path(destination)
     create_directory unless File.exists?(@destination)
   end
 
