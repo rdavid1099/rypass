@@ -9,11 +9,32 @@ class Exporter
     @account = args[:account]
   end
 
+  def export
+    if account.nil?
+      set_up_destination_for_mass_export
+      export_all
+    else
+      export_account
+    end
+  end
+
+  def export_all
+    Dir.glob("#{path}/*.csv").each do |file|
+      account_name = file.split('/').last.sub('.csv','')
+      export_account(account_name)
+    end
+  end
+
   def export_account(exporting_account = nil)
     exporting_account ||= account
     CSV.open("#{destination}/export-#{exporting_account}.csv", 'wb') do |csv|
       CSV.foreach("#{path}/#{exporting_account}.csv") { |row| csv << row }
     end
+  end
+
+  def set_up_destination_for_mass_export
+    @destination += '/RyPass'
+    FileUtils.mkdir_p destination
   end
 
   private

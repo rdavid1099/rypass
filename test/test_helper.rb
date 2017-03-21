@@ -19,11 +19,12 @@ class TestHelper < Minitest::Test
   end
 
   def clean_test_csvs
-    `rm -r #{File.expand_path('~/Library/RyPass/test/*')}; rmdir #{File.expand_path('~/Library/RyPass/test')}`
+    `rm -r #{File.expand_path('~/Library/RyPass/test')}`
   end
 
   def clean_exported_csvs
-    `rm #{File.expand_path('export-test.csv')}`
+    rypass_path = File.expand_path('./RyPass')
+    File.exists?(rypass_path) ? `rm -r #{rypass_path}` : `rm #{File.expand_path('export-test.csv')}`
   end
 
   def load_csv
