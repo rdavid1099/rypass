@@ -39,6 +39,7 @@ class Password
       password.scan(/[!@#$%^&*()]/).count > 0 &&
       password.scan(/[0-9]/).count > 0 &&
       password.scan(/[A-Z]/).count > 0 &&
+      password.scan(/[a-z]/).count > 0 &&
       is_all_unique_characters?(password)
     end
 

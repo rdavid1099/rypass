@@ -6,10 +6,10 @@ require './config/setup'
 class TestHelper < Minitest::Test
   attr_reader :gen
   PASS = Password.new
-  FILE = FileIt.new
+  FILE = FileIt.new('~/Library/RyPass/test')
 
   def setup
-    @gen = Generator.new
+    @gen = Generator.new(destination: '~/Library/RyPass/test')
   end
 
   def generate_test_account(amount = 1, name = 'test')
@@ -19,11 +19,11 @@ class TestHelper < Minitest::Test
   end
 
   def clean_test_csvs
-    `rm -r #{File.expand_path('~/Library/RyPass/*')}`
+    `rm -r #{File.expand_path('~/Library/RyPass/test/*')}; rmdir #{File.expand_path('~/Library/RyPass/test')}`
   end
 
   def load_csv
-    CSV.read('/Users/RyanWorkman/Library/RyPass/test.csv', headers: true, header_converters: :symbol)
+    CSV.read('/Users/RyanWorkman/Library/RyPass/test/test.csv', headers: true, header_converters: :symbol)
   end
 
   def set_ARGV_values(*params)
