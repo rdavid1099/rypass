@@ -5,6 +5,7 @@ class Exporter
 
   def initialize(**args)
     @destination = set_path(args[:destination])
+    args[:path] ||= '~/Library/RyPass'
     @path = set_path(args[:path])
     @account = args[:account]
   end

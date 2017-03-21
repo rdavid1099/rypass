@@ -29,8 +29,14 @@ class Exec
   end
 
   def self.export(params)
-    Exporter.new(params).export
-    raise Interrupt
+    begin
+      Exporter.new(params).export
+      puts Message::Statement.export_successful(params[:destination])
+    rescue => e
+      puts e
+    ensure
+      raise Interrupt
+    end
   end
 
   def self.set_params

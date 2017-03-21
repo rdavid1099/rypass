@@ -65,5 +65,9 @@ module Message
     def self.display_password(password)
       "Password: #{password}"
     end
+
+    def self.export_successful(destination)
+      "Account(s) successfully exported to destination '#{destination}'"
+    end
   end
 end
