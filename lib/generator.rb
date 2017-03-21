@@ -5,7 +5,7 @@ class Generator
 
   def initialize(**options)
     @password_klass = Password.new
-    @file_it = FileIt.new(options[:path])
+    @file_it = FileIt.new(options[:destination])
     @username = options[:username]
     @account = options[:account]
   end
@@ -13,8 +13,13 @@ class Generator
   def create_new_account(**options)
     @account = options[:account] || get_account_name
     @username = options[:username] || get_username
-    @password = generate_password options[:length] || get_length
+    @password ||= generate_password options[:length] || get_length
     save_information
+  end
+
+  def save_password(password)
+    @password = password
+    create_new_account
   end
 
   def create_new_user(new_username)
@@ -26,34 +31,11 @@ class Generator
     end
   end
 
-  def find_all_users_for_account(account_query)
-    if account == account_query
-      [username]
-    else
-      puts Message::Error.account_not_found(account_query)
-    end
-  end
-
-  def find_account_for_user(name_query)
-    if name_query == username
-      account
-    else
-      puts Message::Error.username_not_found(name_query)
-    end
-  end
-
-  def find_password_for_user(name_query)
-    if name_query == username
-      password
-    else
-      puts Message::Error.username_not_found(name_query)
-    end
-  end
-
   def generate_password(length = 12)
     password_klass.generate_new(length)
   rescue
     puts Message::Error.too_many_characters
+    create_new_account(account: account, username: username)
   end
 
   private
@@ -69,17 +51,17 @@ class Generator
 
     def get_account_name
       print Message::Prompt.account_name
-      gets.chomp
+      STDIN.gets.chomp
     end
 
     def get_username
       print Message::Prompt.username(account)
-      gets.chomp
+      STDIN.gets.chomp
     end
 
     def get_length
       print Message::Prompt.password_length
-      length = gets.chomp.to_i
+      length = STDIN.gets.chomp.to_i
       length == 0 ? 12 : length
     end
 end

@@ -23,7 +23,7 @@ module Message
 
   class Prompt
     def self.account_name
-      "Enter the name of the account you are creating a username and password for\n> "
+      "Enter the name of the account connected to the username and generated password\n> "
     end
 
     def self.username(account)
@@ -32,6 +32,34 @@ module Message
 
     def self.password_length
       "Enter the length of the generated password (max 50)\n> "
+    end
+
+    def self.save_to_existing
+      "This password is not saved to any account or username. Would you like to save it (y/n)?\n> "
+    end
+  end
+
+  class Statement
+    def self.success(password)
+      "Generated password for account: #{password}\nInformation successfully saved locally"
+    end
+
+    def self.password_generated(password)
+      "Password generated: #{password}"
+    end
+
+    def self.display_all_account_data(raw_data)
+      raw_data.map do |data|
+        "#{data[0]} | #{data[1]}"
+      end.unshift('Username | Password').join("\n")
+    end
+
+    def self.display_usernames(usernames)
+      usernames.unshift('Username').join("\n")
+    end
+
+    def self.display_password(password)
+      "Password: #{password}"
     end
   end
 end

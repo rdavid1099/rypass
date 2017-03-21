@@ -25,4 +25,10 @@ class TestHelper < Minitest::Test
   def load_csv
     CSV.read('/Users/RyanWorkman/Library/RyPass/test.csv', headers: true, header_converters: :symbol)
   end
+
+  def set_ARGV_values(*params)
+    params.each_with_index do |param, i|
+      ARGV[i] = param
+    end
+  end
 end
