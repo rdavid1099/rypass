@@ -12,28 +12,20 @@ class Account
   end
 
   def usernames
-    raw_data.keys
+    Message::Statement.display_usernames(raw_data.keys)
   end
 
   def get_password
     @username ||= get_username
     if raw_data.keys.include?(@username)
-      raw_data[@username]
+      Message::Statement.display_password(raw_data[@username])
     else
       raise RuntimeError, Message::Error.username_not_found(@username)
     end
   end
 
   def all
-    raw_data.to_a
-  end
-
-  def find_password_for_user(name_query)
-    if name_query == username
-      password
-    else
-      puts Message::Error.username_not_found(name_query)
-    end
+    Message::Statement.display_all_account_data(raw_data.to_a)
   end
 
   private

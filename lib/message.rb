@@ -47,5 +47,19 @@ module Message
     def self.password_generated(password)
       "Password generated: #{password}"
     end
+
+    def self.display_all_account_data(raw_data)
+      raw_data.map do |data|
+        "#{data[0]} | #{data[1]}"
+      end.unshift('Username | Password').join("\n")
+    end
+
+    def self.display_usernames(usernames)
+      usernames.unshift('Username').join("\n")
+    end
+
+    def self.display_password(password)
+      "Password: #{password}"
+    end
   end
 end

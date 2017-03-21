@@ -20,7 +20,7 @@ class Exec
   def self.display_account(params)
     begin
       account = Account.new(params)
-      account.send(params[:second_action])
+      puts "\n" + account.send(params[:second_action])
     rescue RuntimeError => e
       puts e
     ensure
