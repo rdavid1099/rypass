@@ -22,8 +22,16 @@ class TestHelper < Minitest::Test
     `rm -r #{File.expand_path('~/Library/RyPass/test/*')}; rmdir #{File.expand_path('~/Library/RyPass/test')}`
   end
 
+  def clean_exported_csvs
+    `rm #{File.expand_path('export-test.csv')}`
+  end
+
   def load_csv
-    CSV.read('/Users/RyanWorkman/Library/RyPass/test/test.csv', headers: true, header_converters: :symbol)
+    CSV.read(File.expand_path('~/Library/RyPass/test/test.csv'), headers: true, header_converters: :symbol)
+  end
+
+  def load_exported_csv
+    CSV.read(File.expand_path('export-test.csv'), headers: true, header_converters: :symbol)
   end
 
   def set_ARGV_values(*params)
