@@ -3,11 +3,11 @@ require './config/setup'
 class Generator
   attr_reader :username, :account
 
-  def initialize(**options)
+  def initialize(**args)
     @password_klass = Password.new
-    @file_it = FileIt.new(options[:destination])
-    @username = options[:username]
-    @account = options[:account]
+    @file_it = FileIt.new(args[:destination])
+    @username = args[:username]
+    @account = args[:account]
   end
 
   def create_new_account(**options)

@@ -11,7 +11,7 @@ class ExecTest < TestHelper
   end
 
   def test_it_sets_proper_params_dependent_on_ARGV
-    set_ARGV_values('n', '-a', 'test', '--username=tester', '-l', '15', '--fake=?', '--path=~/path/to/csv')
+    set_ARGV_values('n', '-a', 'test', '--username=tester', '-l', '15', '--fake=?', '--destination=~/path/to/csv')
     params = Exec.set_params
 
     assert_equal params[:action], :new_account
