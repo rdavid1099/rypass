@@ -69,5 +69,9 @@ module Message
     def self.export_successful(destination)
       "Account(s) successfully exported to destination '#{destination}'"
     end
+
+    def self.uninstalled
+      "RyPass successfully uninstalled."
+    end
   end
 end

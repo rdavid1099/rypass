@@ -39,6 +39,11 @@ class Exec
     end
   end
 
+  def self.uninstall(params)
+    `#{File.expand_path('~')}/RyPassSource/config/uninstall.sh`
+    puts Message::Statement.uninstalled
+  end
+
   def self.set_params
     @params = Hash[action: actionary[ARGV.first]]
     i = determine_secondary_actions
@@ -99,6 +104,7 @@ class Exec
         'g' => :generate, 'generate' => :generate,
         'a' => :display_account, 'account' => :display_account,
         'e' => :export, 'export' => :export,
+        'U' => :uninstall, 'uninstall' => :uninstall,
         '-A' => :all, '--all' => :all,
         '-U' => :usernames, '--usernames' => :usernames,
         '-P' => :get_password, '--get-password' => :get_password
