@@ -5,7 +5,6 @@ class FileIt
 
   def initialize(destination = nil)
     @errors = []
-    @current_path = `pwd`.chomp
     destination ||= '~/Library/RyPass'
     @destination = File.expand_path(destination)
     create_directory unless File.exists?(@destination)
@@ -33,12 +32,8 @@ class FileIt
   end
 
   private
-    attr_reader :current_path
-
     def create_directory
-      Dir.chdir('/')
       FileUtils::mkdir_p destination
-      Dir.chdir(current_path)
     end
 
     def update_existing_account(data, **options)

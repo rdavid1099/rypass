@@ -28,6 +28,17 @@ class Exec
     end
   end
 
+  def self.export(params)
+    begin
+      Exporter.new(params).export
+      puts Message::Statement.export_successful(params[:destination])
+    rescue => e
+      puts e
+    ensure
+      raise Interrupt
+    end
+  end
+
   def self.set_params
     @params = Hash[action: actionary[ARGV.first]]
     i = determine_secondary_actions
@@ -76,8 +87,9 @@ class Exec
       {
         '-a' => :account, '--account' => :account,
         '-u' => :username, '--username' => :username,
-        '-p' => :destination, '--path' => :destination,
-        '-l' => :length, '--length' => :length
+        '-d' => :destination, '--destination' => :destination,
+        '-l' => :length, '--length' => :length,
+        '-p' => :path, '--path' => :path
       }
     end
 
@@ -86,6 +98,7 @@ class Exec
         'n' => :new_account, 'new' => :new_account,
         'g' => :generate, 'generate' => :generate,
         'a' => :display_account, 'account' => :display_account,
+        'e' => :export, 'export' => :export,
         '-A' => :all, '--all' => :all,
         '-U' => :usernames, '--usernames' => :usernames,
         '-P' => :get_password, '--get-password' => :get_password

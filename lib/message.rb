@@ -19,6 +19,10 @@ module Message
     def self.account_not_found(account)
       "Error: Users not found for account #{account}"
     end
+
+    def self.path_not_found(destination)
+      "Error: Path '#{destination}' not found"
+    end
   end
 
   class Prompt
@@ -60,6 +64,10 @@ module Message
 
     def self.display_password(password)
       "Password: #{password}"
+    end
+
+    def self.export_successful(destination)
+      "Account(s) successfully exported to destination '#{destination}'"
     end
   end
 end
