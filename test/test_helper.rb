@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require './config/setup'
+require "#{PATH}/config/setup"
 
 class TestHelper < Minitest::Test
   attr_reader :gen

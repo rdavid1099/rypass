@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-require './config/setup'
+PATH = File.expand_path('~/RyPassSource')
+require "#{PATH}/config/setup"
 
 begin
   params = Exec.set_params

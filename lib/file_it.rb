@@ -1,4 +1,4 @@
-require './config/setup'
+require "#{PATH}/config/setup"
 
 class FileIt
   attr_reader :destination, :errors

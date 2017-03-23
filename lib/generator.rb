@@ -1,4 +1,4 @@
-require './config/setup'
+require "#{PATH}/config/setup"
 
 class Generator
   attr_reader :username, :account
