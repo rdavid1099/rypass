@@ -12,6 +12,7 @@ class Generator
     @account = options[:account] || get_account_name
     @username = options[:username] || get_username
     @password ||= generate_password options[:length] || get_length
+    save_information
     {
       destination: options[:destination] || '~/Library/RyPass/',
       account: @account,
