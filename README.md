@@ -16,7 +16,7 @@ RyPass is a Terminal-based application that generates and stores passwords for m
     - Flags:
       - `--account=` or `-a` - Name of account
       - `--username=` or `-u` - Name of username
-      - `--destination=` or `-d` - Path of destination for csv
+      - `--destination=` or `-d` - Path of destination for csv -- If no path is given, the data will be saved to the default location of `~/Library/RyPass`
       - `--length=` or `-l` - Length of generated password (12 character default)
   - `generate` or `g` - Generates a random password and displays it. Password is not attached to an account, username, or saved in the system.
     - Flags:
@@ -31,7 +31,7 @@ RyPass is a Terminal-based application that generates and stores passwords for m
       - `--username=` or `-u` - Name of username
   - `export` or `e` - Exports all accounts, including usernames and passwords, to a given path.
     - Flags:
-      - `--path=` or `-p` - Path of RyPass data.
+      - `--path=` or `-p` - Path of RyPass data -- If no path is given, the data will be searched for in the default location of `~/Library/RyPass`
       - `--destination=` or `-d` - Destination for the exported RyPass data.
   - `commands` or `c` - Display list of all RyPass commands and functions.
   - `uninstall` or `U` - Uninstall RyPass. All csvs and data will NOT be deleted and will still be accessible in the given directory.

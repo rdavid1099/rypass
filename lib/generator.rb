@@ -3,18 +3,21 @@ require "#{PATH}/config/setup"
 class Generator
   attr_reader :username, :account
 
-  def initialize(**args)
+  def initialize(destination = nil)
     @password_klass = Password.new
-    @file_it = FileIt.new(args[:destination])
-    @username = args[:username]
-    @account = args[:account]
+    @file_it = FileIt.new(destination)
   end
 
   def create_new_account(**options)
     @account = options[:account] || get_account_name
     @username = options[:username] || get_username
     @password ||= generate_password options[:length] || get_length
-    save_information
+    {
+      destination: options[:destination] || '~/Library/RyPass/',
+      account: @account,
+      username: @username,
+      password: @password
+    }
   end
 
   def save_password(password)
@@ -24,7 +27,7 @@ class Generator
 
   def create_new_user(new_username)
     if username
-      puts Message::Error.username_exists(username)
+      raise RuntimeError, Message::Error.username_exists(username)
     else
       @username = new_username
       generate_password
@@ -34,7 +37,7 @@ class Generator
   def generate_password(length = 12)
     password_klass.generate_new(length)
   rescue
-    puts Message::Error.too_many_characters
+    raise RuntimeError, Message::Error.too_many_characters
     create_new_account(account: account, username: username)
   end
 
@@ -45,7 +48,7 @@ class Generator
       if file_it.save(account: account.downcase, username: username.downcase, password: password)
         password
       else
-        Message::Error.general(file_it.errors.join(', '))
+        raise RuntimeError, Message::Error.general(file_it.errors.join(', '))
       end
     end
 

@@ -44,8 +44,9 @@ module Message
   end
 
   class Statement
-    def self.success(password)
-      "Generated password for account: #{password}\nInformation successfully saved locally"
+    def self.success(params)
+      "Generated password for username `#{params[:username]}` with account `#{params[:account]}`: #{params[:password]}\n" +
+      "Information successfully saved locally to `#{params[:destination]}`"
     end
 
     def self.password_generated(password)

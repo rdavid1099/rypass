@@ -2,9 +2,15 @@ require "#{PATH}/config/setup"
 
 class Exec
   def self.new_account(params)
-    password = Generator.new.create_new_account(params)
-    puts "\n" + Message::Statement.success(password)
-    raise Interrupt
+    begin
+      generator = Generator.new(params[:destination])
+      saved_meta_data = generator.create_new_account(params)
+      puts "\n" + Message::Statement.success(saved_meta_data)
+    rescue RuntimeError => e
+      puts e
+    ensure
+      raise Interrupt
+    end
   end
 
   def self.generate(params)
