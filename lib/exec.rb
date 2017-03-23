@@ -44,6 +44,11 @@ class Exec
     puts Message::Statement.uninstalled
   end
 
+  def self.display_commands(params)
+    puts Message::Statement.command_list
+    raise Interrupt
+  end
+
   def self.set_params
     @params = Hash[action: actionary[ARGV.first]]
     i = determine_secondary_actions
@@ -105,6 +110,7 @@ class Exec
         'a' => :display_account, 'account' => :display_account,
         'e' => :export, 'export' => :export,
         'U' => :uninstall, 'uninstall' => :uninstall,
+        'c' => :display_commands, 'commands' => :display_commands,
         '-A' => :all, '--all' => :all,
         '-U' => :usernames, '--usernames' => :usernames,
         '-P' => :get_password, '--get-password' => :get_password

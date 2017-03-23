@@ -1,3 +1,5 @@
+PATH = File.expand_path('~/RyPassSource')
+
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'

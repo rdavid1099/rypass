@@ -31,6 +31,7 @@ RyPass is a Terminal-based application that generates and stores passwords for m
       - `--username=` or `-u` - Name of username
   - `export` or `e` - Exports all accounts, including usernames and passwords, to a given path.
     - Flags:
-      - `--path=` or `-p` - Path of RyPass data
-      - `--destination=` or `-d` - Destination for the exported RyPass data
+      - `--path=` or `-p` - Path of RyPass data.
+      - `--destination=` or `-d` - Destination for the exported RyPass data.
+  - `commands` or `c` - Display list of all RyPass commands and functions.
   - `uninstall` or `U` - Uninstall RyPass. All csvs and data will NOT be deleted and will still be accessible in the given directory.
