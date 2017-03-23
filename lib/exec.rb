@@ -1,4 +1,4 @@
-require './config/setup'
+require "#{PATH}/config/setup"
 
 class Exec
   def self.new_account(params)

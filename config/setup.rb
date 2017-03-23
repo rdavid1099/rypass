@@ -1,4 +1,3 @@
 require 'csv'
 require 'fileutils'
-
-Dir.glob('./lib/*.rb').each { |file| require file.sub('.rb','') }
+Dir.glob("#{PATH}/lib/*.rb").each { |file| require "#{file.sub('.rb','')}" }

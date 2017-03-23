@@ -1,4 +1,4 @@
-require './lib/string'
+require "#{PATH}/lib/string"
 
 class Password
   CHARACTERS = [['!','@','$','%','^','&','*','(',')'],

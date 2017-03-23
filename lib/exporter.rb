@@ -1,4 +1,4 @@
-require './config/setup'
+require "#{PATH}/config/setup"
 
 class Exporter
   attr_reader :destination, :path, :account

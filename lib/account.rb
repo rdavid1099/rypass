@@ -1,4 +1,4 @@
-require './config/setup'
+require "#{PATH}/config/setup"
 
 class Account
   attr_reader :account, :destination
