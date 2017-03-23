@@ -4,10 +4,10 @@ class Account
   attr_reader :account, :destination
 
   def initialize(**args)
-    @account = args[:account] || get_account_name
+    @account = args[:account].nil? ? get_account_name : args[:account].downcase
     args[:destination] ||= '~/Library/RyPass'
-    @destination = File.expand_path(args[:destination])
-    @username = args[:username]
+    @destination = File.expand_path(args[:destination]).downcase
+    @username = args[:username].nil? ? nil : args[:username].downcase
     load_csv
   end
 
@@ -32,7 +32,7 @@ class Account
     attr_reader :raw_data
 
     def load_csv
-      if Dir["#{destination}/*.csv"].include?("#{destination}/#{account}.csv")
+      if sanitize!(Dir["#{destination}/*.csv"]).include?("#{destination}/#{account}.csv")
         @raw_data = {}
         CSV.foreach("#{destination}/#{account}.csv", headers: true) do |row|
           @raw_data[row[0]] = row[1] unless row[0] == 'username'
@@ -42,6 +42,10 @@ class Account
       end
     end
 
+    def sanitize!(file_paths)
+      file_paths.map { |file_path| file_path.downcase }
+    end
+
     def get_account_name
       print Message::Prompt.account_name
       STDIN.gets.downcase.chomp
@@ -49,6 +53,6 @@ class Account
 
     def get_username
       print Message::Prompt.username(account)
-      STDIN.gets.chomp
+      STDIN.gets.downcase.chomp
     end
 end
