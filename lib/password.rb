@@ -1,7 +1,7 @@
 require "#{PATH}/lib/string"
 
 class Password
-  CHARACTERS = [['!','@','$','%','^','&','*','(',')'],
+  CHARACTERS = [['!','$','%','+','/','=','@','~'],
                 ('0'..'9').to_a,
                 ('a'..'z').to_a]
 
