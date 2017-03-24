@@ -11,7 +11,7 @@ class TestHelper < Minitest::Test
   FILE = FileIt.new('~/Library/RyPass/test')
 
   def setup
-    @gen = Generator.new(destination: '~/Library/RyPass/test')
+    @gen = Generator.new('~/Library/RyPass/test')
   end
 
   def generate_test_account(amount = 1, name = 'test')
