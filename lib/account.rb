@@ -10,10 +10,10 @@ class Account
 
   # Initialize account with a hash of options
   #
-  # @param [Hash] opts the options to create an account with.
-  # @option opts [String] :account the name of the account.
-  # @option opts [String] :destination ('~/Library/RyPass') the pathname where the account csv will be saved and/ or loaded.
-  # @option opts [String] :username the username to be saved and/ or loaded with the associated account.
+  # @param [Hash] opts the options to create an account with
+  # @option opts [String] :account the name of the account
+  # @option opts [String] :destination ('~/Library/RyPass') the pathname where the account csv will be saved and/ or loaded
+  # @option opts [String] :username the username to be saved and/ or loaded with the associated account
   def initialize(**opts)
     @account = opts[:account].nil? ? get_account_name : opts[:account].downcase
     opts[:destination] ||= '~/Library/RyPass'
