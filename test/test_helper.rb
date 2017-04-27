@@ -14,6 +14,10 @@ class TestHelper < Minitest::Test
     @gen = Generator.new('~/Library/RyPass/test')
   end
 
+  def file_io_test
+    skip if ENV['s']
+  end
+
   def generate_test_account(amount = 1, name = 'test')
     amount.times do |i|
       FILE.save(account: name, username: "test#{i}@test.com", password: "password#{i}")
