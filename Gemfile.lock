@@ -10,6 +10,7 @@ GEM
       slop (~> 3.4)
     rake (12.0.0)
     slop (3.6.0)
+    yard (0.9.9)
 
 PLATFORMS
   ruby
@@ -18,6 +19,7 @@ DEPENDENCIES
   minitest
   pry
   rake
+  yard
 
 BUNDLED WITH
    1.14.6
