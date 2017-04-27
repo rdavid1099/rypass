@@ -2,7 +2,7 @@ require './test/test_helper'
 
 class FileItTest < TestHelper
   def test_it_saves_new_information_as_csv
-    skip if ENV['s']
+    file_io_test
     FILE.save(account: 'test', username: 'test@test.com', password: 'password')
     csv = load_csv
     clean_test_csvs
@@ -12,7 +12,7 @@ class FileItTest < TestHelper
   end
 
   def test_it_updates_existing_username_with_new_password
-    skip if ENV['s']
+    file_io_test
     FILE.save(account: 'test', username: 'test@test.com', password: 'password')
     FILE.save(account: 'test', username: 'thistest@test.com', password: 'password')
     FILE.save(account: 'test', username: 'test@test.com', password: 'newpassword')
@@ -24,7 +24,7 @@ class FileItTest < TestHelper
   end
 
   def test_it_removes_existing_username_and_password
-    skip if ENV['s']
+    file_io_test
     FILE.save(account: 'test', username: 'test@test.com', password: 'password')
     FILE.save(account: 'test', username: 'thistest@test.com', password: 'thispassword')
     result = FILE.destroy(account: 'test', username: 'test@test.com')

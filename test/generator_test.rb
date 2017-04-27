@@ -12,7 +12,7 @@ class GeneratorTest < TestHelper
   end
 
   def test_it_stores_an_account_with_username
-    skip if ENV['s']
+    file_io_test
     meta_data = gen.create_new_account(account: 'test', username: 'test@test.com', length: 12)
     csv = load_csv
     clean_test_csvs
