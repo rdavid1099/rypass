@@ -8,7 +8,7 @@ class Account
   # @return [String] the pathname where the account csv will be saved and/ or loaded
   attr_reader :destination
 
-  # Initialize account with a hash of options
+  # Initialize Account with a hash of options
   #
   # @param [Hash] opts the options to create an account with
   # @option opts [String] :account the name of the account
