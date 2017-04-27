@@ -4,7 +4,11 @@ require "#{PATH}/config/setup"
 
 begin
   params = Exec.set_params
-  Exec.send(params[:action], params) if params[:action]
+  if params[:action] == :uninstall || params[:action] == :display_commands
+    Exec.send(params[:action])
+  elsif params[:action]
+    Exec.send(params[:action], params)
+  end
 rescue Interrupt
   puts "\nThank you for using RyPass"
   exit
