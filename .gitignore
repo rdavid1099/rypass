@@ -1,1 +1,11 @@
+# Bundler generated files
+/.bundle/
+
+# Documentation Handled by YARD
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
+# Test csv created by FileIO tests
 test.csv

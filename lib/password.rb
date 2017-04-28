@@ -1,16 +1,28 @@
 require "#{PATH}/lib/string"
 
+# Handles all password generation
 class Password
+
+  # 2-D array of all possible characters that can be used in a password
   CHARACTERS = [['!','$','%','+','/','=','@','~'],
                 ('0'..'9').to_a,
                 ('a'..'z').to_a]
 
+  # Generate a new password of given length
+  #
+  # @param [Integer] length length of characters of generated password
+  # @return [String] generated password
   def generate_new(length)
     generated = []
     length.times { generated << Password.random_character }
     sanitize(generated.join(''))
   end
 
+  # Sanitize password to ensure there are all unique characters and there is at
+  # least one special character, capital letter, lowercase letter, and number
+  #
+  # @param [String] password pre-sanitized/ initially generated password
+  # @return [String] sanitized and completely unique password
   def sanitize(password)
     password.add_special!(CHARACTERS[0]) if password.scan(/[!@#$%^&*()]/).empty?
     password.add_number!(CHARACTERS[1]) if password.scan(/[0-9]/).empty?
@@ -20,11 +32,16 @@ class Password
     return password
   end
 
+  # @return [String] a random character from the constant CHARACTERS
   def self.random_character
     character_set = CHARACTERS[rand(3)]
     character_set[rand(character_set.length)]
   end
 
+  # Get a unique character that is not in current password
+  #
+  # @param [String] password generated password
+  # @return [String] unique character that is not present in password
   def self.new_character(password)
     CHARACTERS.each do |set|
       set.each do |char|

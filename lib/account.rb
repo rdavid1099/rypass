@@ -1,20 +1,38 @@
 require "#{PATH}/config/setup"
 
+# Get basic username and password data attached to a given account
 class Account
-  attr_reader :account, :destination
+  # @return [String] the name of the account
+  attr_reader :account
 
-  def initialize(**args)
-    @account = args[:account].nil? ? get_account_name : args[:account].downcase
-    args[:destination] ||= '~/Library/RyPass'
-    @destination = File.expand_path(args[:destination]).downcase
-    @username = args[:username].nil? ? nil : args[:username].downcase
+  # @return [String] the pathname where the account csv will be saved and/ or loaded
+  attr_reader :destination
+
+  # Initialize Account with a hash of options
+  #
+  # @param [Hash] opts the options to create an account with
+  # @option opts [String] :account the name of the account
+  # @option opts [String] :destination ('~/Library/RyPass') the pathname where the account csv will be saved and/ or loaded
+  # @option opts [String] :username the username to be saved and/ or loaded with the associated account
+  def initialize(**opts)
+    @account = opts[:account].nil? ? get_account_name : opts[:account].downcase
+    opts[:destination] ||= '~/Library/RyPass'
+    @destination = File.expand_path(opts[:destination]).downcase
+    @username = opts[:username].nil? ? nil : opts[:username].downcase
     load_csv
   end
 
+  # Get all usernames attached to account
+  #
+  # @return [String] all usernames saved under given account
   def usernames
     Message::Statement.display_usernames(raw_data.keys)
   end
 
+  # Get password for given username with the account
+  #
+  # @return [String] the password saved for a specific username with the account
+  # @raise [RuntimeError] if username is not found with the account
   def get_password
     @username ||= get_username
     if raw_data.keys.include?(@username)
@@ -24,6 +42,9 @@ class Account
     end
   end
 
+  # Get all usernames and respective passwords for the account
+  #
+  # @return [String] all usernames and passwords attached to account
   def all
     Message::Statement.display_all_account_data(raw_data.to_a)
   end
