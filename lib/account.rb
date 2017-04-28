@@ -1,6 +1,6 @@
 require "#{PATH}/config/setup"
 
-# Get basic username and password data attached to a given account.
+# Get basic username and password data attached to a given account
 class Account
   # @return [String] the name of the account
   attr_reader :account
