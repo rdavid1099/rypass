@@ -65,6 +65,8 @@ Run `rake -T` to see the two options for running tests.
 
 If adding new functionality, be sure to keep the documentation up-to-date. We use [YARD](http://yardoc.org/) for documentation. Be sure to follow the style present throughout the codebase and refer to docs for any additional questions. For functions, write a description, parameters (if any), and the return value (if non-void).
 
+To view the most recent documentation run `yardoc` from the root directory and then run `yard server`. In your favorite browser, go to `localhost:8808`.
+
 ## Pull Requests
 
 All branches should be based off the `development` branch and written using the following format, `ISSUE_NUMBER-SUMMARY-OF-ISSUE` (ex: `12-create-contributing`). Before submitting a pull request, run `rake test:all` in the top-level directory to verify that all tests are passing. Make your pull request to `development` unless stated otherwise in the issue tracker. We will check for new pull requests at the end of every day and review/ comment on them as necessary.
