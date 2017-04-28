@@ -46,4 +46,8 @@ class TestHelper < Minitest::Test
       ARGV[i] = param
     end
   end
+
+  def create_secret_yml
+    
+  end
 end

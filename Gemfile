@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem 'pry'
 gem 'rake'
 # Handling password encryption and decryption
-# gem 'bcrypt', '>= 2.1.4'
+gem 'rbnacl-libsodium'
 # Generating documentation
 gem 'yard'
 
