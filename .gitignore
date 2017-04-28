@@ -8,4 +8,4 @@
 /rdoc/
 
 # Test csv created by FileIO tests
-test.csv
+/tmp/
