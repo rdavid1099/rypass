@@ -16,11 +16,16 @@ namespace :test do
 
   desc 'Run RyPass in test environment'
   task :rypass do
-    ARGV.shift
+    print '$rypass '
+    ARGV = STDIN.gets.chomp.split(' ')
     begin
       params = Exec.set_params
-      if params[:action] == :uninstall || params[:action] == :display_commands
+      params[:destination] = File.expand_path('./tmp')
+      params[:path] = File.expand_path('./tmp')
+      if params[:action] == :display_commands
         Exec.send(params[:action])
+      elsif params[:action] == :uninstall
+        puts "\nERROR: Can't uninstall in TEST environment."
       elsif params[:action]
         Exec.send(params[:action], params)
       end
