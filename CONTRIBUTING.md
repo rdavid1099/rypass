@@ -2,6 +2,25 @@
 
 Thank you for your interest in contributing! We welcome developers of all skill levels to contribute to RyPass and will provide issues for those new to open-source and veterans alike. All tasks that we are looking to complete can be found in the [Issues](https://github.com/rdavid1099/rypass/issues) section. If you find a bug or would like to implement new functionality, please feel free to contact the owner, [rdavid1099@gmail.com](mailto:rdavid1099@gmail.com).
 
+## Installation
+
+- Fork and clone RyPass to your local machine, use [this guide](https://help.github.com/articles/fork-a-repo/) if you don't know how to do that.
+- Set the upstream remote so you can keep your copy of RyPass synced with the original. To do that go to your terminal and `cd` into your cloned RyPass directory. Then user one of the following commands:
+
+   If you have ssh set up with Git
+   ```
+   $ git remote add upstream git@github.com:rdavid1099/rypass.git
+   ```
+   Otherwise
+   ```
+   $ git remote add upstream https://github.com/rdavid1099/rypass.git
+   ```
+
+- From the root directory run `bundle install` to install all gem dependencies.
+- Run `./config/seed.sh` to setup and seed your test environment.
+- Run `rake test:rypass` to launch the test environment. The task will output `$rypass`, just enter any of the flags you want to test as if you were running `rypass` from the command line. In the test environment, all FileIO functionality will be handled in the `tmp/` directory in the root of the project.
+- If you would like to install the application on your computer to test production, simply run `./config/install.sh` and run `rypass` from the terminal. `rypass uninstall` will remove the program from your computer.
+
 ## Code Style
 
 While we encourage creativity and "clever" code, your implementation must follow basic Ruby standards and practices. This includes:
