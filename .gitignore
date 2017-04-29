@@ -7,5 +7,8 @@
 /doc/
 /rdoc/
 
+# Coveralls coverage info
+/coverage/
+
 # Test csv created by FileIO tests
 /tmp/

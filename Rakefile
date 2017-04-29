@@ -1,6 +1,4 @@
-PATH = File.expand_path('.')
 require 'rake'
-require_relative './config/setup'
 
 namespace :test do
   desc 'Run all tests in test suite, including FileIO'
@@ -16,6 +14,8 @@ namespace :test do
 
   desc 'Run RyPass in test environment'
   task :rypass do
+    PATH = File.expand_path('.')
+    require './config/setup'
     print '$rypass '
     ARGV = STDIN.gets.chomp.split(' ')
     begin
