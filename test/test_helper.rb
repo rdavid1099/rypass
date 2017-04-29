@@ -1,7 +1,9 @@
-require 'simplecov'
-SimpleCov.start do
-  SimpleCov.add_filter 'test'
-  SimpleCov.add_filter 'config/setup'
+unless ENV['s'] do
+  require 'simplecov'
+  SimpleCov.start do
+    SimpleCov.add_filter 'test'
+    SimpleCov.add_filter 'config/setup'
+  end
 end
 
 PATH = File.expand_path('.')
