@@ -13,7 +13,7 @@ RyPass is a Terminal-based application that generates and stores passwords for m
 ### Contributing
 RyPass is always looking for open source contributors to help its growth, reliability and performance. We welcome coders of all levels to help out and add to our codebase.
 
-To find out more about how you can contribute please read our [contributing guide](https://github.com/rdavid1099/rypass/blob/master/CONTRIBUTING.md).
+To find out more about how you can contribute please read our [contributing guide](https://github.com/rdavid1099/rypass/blob/master/CONTRIBUTING.md) and for specific functionality check out our [documentation](http://www.rubydoc.info/github/rdavid1099/rypass/master).
 
 ### RyPass Operation
 #### Commands
