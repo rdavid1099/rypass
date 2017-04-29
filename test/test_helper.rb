@@ -1,9 +1,11 @@
-unless ENV['s'] do
+unless ENV['s']
   require 'simplecov'
   SimpleCov.start do
     SimpleCov.add_filter 'test'
     SimpleCov.add_filter 'config/setup'
   end
+else
+  puts "\nNOTE: Coverage not tracked unless running 'rake test:all'\n"
 end
 
 PATH = File.expand_path('.')
