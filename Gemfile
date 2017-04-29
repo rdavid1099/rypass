@@ -10,5 +10,5 @@ gem 'yard'
 group :test do
   gem 'minitest'
   # Tracking test coverage
-  # gem 'simplecov', require: false
+  gem 'simplecov'
 end

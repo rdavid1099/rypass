@@ -1,9 +1,14 @@
-PATH = File.expand_path('.')
+require 'simplecov'
+SimpleCov.start do
+  SimpleCov.add_filter 'test'
+  SimpleCov.add_filter 'config/setup'
+end
 
+PATH = File.expand_path('.')
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require "#{PATH}/config/setup"
+Dir.glob("#{PATH}/lib/*.rb").each { |file| require "#{file.sub('.rb','')}" }
 
 class TestHelper < Minitest::Test
   attr_reader :gen
