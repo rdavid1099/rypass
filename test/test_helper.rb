@@ -56,7 +56,13 @@ class TestHelper < Minitest::Test
     end
   end
 
-  def create_secret_yml
-    
+  def create_secret_yml(key: nil)
+    File.open(File.expand_path('./config/encryption.yml'), 'w') do |f|
+      f.write "---\nSECRET_KEY: #{key}"
+    end
+  end
+
+  def clean_secret_yml
+    `rm #{File.expand_path('./config/encryption.yml')}`
   end
 end
