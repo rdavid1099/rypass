@@ -65,7 +65,7 @@ Run `rake -T` to see the two options for running tests.
 
 If adding new functionality, be sure to keep the documentation up-to-date. We use [YARD](http://yardoc.org/) for documentation. Be sure to follow the style present throughout the codebase and refer to docs for any additional questions. For functions, write a description, parameters (if any), and the return value (if non-void).
 
-To view the most recent documentation run `yardoc` from the root directory and then run `yard server`. In your favorite browser, go to `localhost:8808`.
+To view the most recent documentation run `yardoc` from the root directory and then run `yard server`. In your favorite browser, go to `localhost:8808`. You can also check out our [online documentation](http://www.rubydoc.info/github/rdavid1099/rypass/master).
 
 ## Pull Requests
 
