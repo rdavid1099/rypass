@@ -15,12 +15,11 @@ require 'pry'
 Dir.glob("#{PATH}/lib/*.rb").each { |file| require "#{file.sub('.rb','')}" }
 
 class TestHelper < Minitest::Test
-  attr_reader :gen
-  PASS = Password.new
-  FILE = FileIt.new('~/Library/RyPass/test')
-
-  def setup
-    @gen = Generator.new('~/Library/RyPass/test')
+  def setup_test
+    {file: FileIt.new('~/Library/RyPass/test'),
+     gen: Generator.new('~/Library/RyPass/test'),
+     pass: Password.new,
+     encrypt: Encryption.new}
   end
 
   def file_io_test
@@ -29,7 +28,7 @@ class TestHelper < Minitest::Test
 
   def generate_test_account(amount = 1, name = 'test')
     amount.times do |i|
-      FILE.save(account: name, username: "test#{i}@test.com", password: "password#{i}")
+      FileIt.new('~/Library/RyPass/test').save(account: name, username: "test#{i}@test.com", password: "password#{i}")
     end
   end
 
