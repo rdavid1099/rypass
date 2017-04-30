@@ -16,6 +16,7 @@ class FileIt
     destination ||= '~/Library/RyPass'
     @destination = File.expand_path(destination)
     create_directory unless File.exists?(@destination)
+    @encrypt = Encryption.new
   end
 
   # Save or update data for given account name
@@ -57,17 +58,40 @@ class FileIt
     Dir["#{destination}/*.csv"].include?("#{destination}/#{account}.csv")
   end
 
+  def self.update_encryption(file)
+    encrypt = Encryption.new
+    data = []
+    CSV.foreach(file, headers: true) do |row|
+      data << [row[0], row[1]] unless row[0] == 'username'
+    end
+
+    CSV.open(file, 'wb') do |csv|
+      csv << ['username', 'password', 'nonce']
+      data.each do |row|
+        csv << [row[0],
+                encrypt.encrypt_password(row[1]),
+                encrypt.nonce]
+      end
+    end
+  end
+
   private
+    attr_reader :encrypt
+
     def create_directory
       FileUtils::mkdir_p destination
     end
 
-    def update_existing_account(data, **options)
+    def update_existing_account(data, destroy: nil)
       CSV.open("#{destination}/new-#{data[:account]}.csv", 'wb') do |csv|
         CSV.foreach("#{destination}/#{data[:account]}.csv") do |row|
           csv << row unless row[0] == data[:username]
         end
-        csv << [data[:username], data[:password]] unless options[:destroy]
+        unless destroy
+          csv << [data[:username],
+                  encrypt.encrypt_password(data[:password]),
+                  encrypt.nonce]
+        end
       end
       clean_and_rename_new_csv(data[:account])
       true
@@ -79,8 +103,10 @@ class FileIt
 
     def create_new_account(options)
       CSV.open("#{destination}/#{options[:account]}.csv", 'wb') do |csv|
-        csv << ['username', 'password']
-        csv << [options[:username], options[:password]]
+        csv << ['username', 'password', 'nonce']
+        csv << [options[:username],
+                encrypt.encrypt_password(options[:password]),
+                encrypt.nonce]
       end
       true
     rescue => e

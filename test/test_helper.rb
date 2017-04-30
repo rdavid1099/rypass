@@ -7,20 +7,21 @@ unless ENV['s']
 else
   puts "\nNOTE: Coverage not tracked unless running 'rake test:all'\n"
 end
-
-PATH = File.expand_path('.')
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-Dir.glob("#{PATH}/lib/*.rb").each { |file| require "#{file.sub('.rb','')}" }
+
+PATH = File.expand_path('.')
+ENV['test'] = 'true'
+FileUtils::mkdir_p "#{PATH}/tmp/config" unless File.exists?("#{PATH}/tmp/config")
+require './config/setup'
 
 class TestHelper < Minitest::Test
-  attr_reader :gen
-  PASS = Password.new
-  FILE = FileIt.new('~/Library/RyPass/test')
-
-  def setup
-    @gen = Generator.new('~/Library/RyPass/test')
+  def setup_test
+    {file: FileIt.new('~/Library/RyPass/test'),
+     gen: Generator.new('~/Library/RyPass/test'),
+     pass: Password.new,
+     encrypt: Encryption.new}
   end
 
   def file_io_test
@@ -29,7 +30,7 @@ class TestHelper < Minitest::Test
 
   def generate_test_account(amount = 1, name = 'test')
     amount.times do |i|
-      FILE.save(account: name, username: "test#{i}@test.com", password: "password#{i}")
+      FileIt.new('~/Library/RyPass/test').save(account: name, username: "test#{i}@test.com", password: "password#{i}")
     end
   end
 
@@ -53,6 +54,12 @@ class TestHelper < Minitest::Test
   def set_ARGV_values(*params)
     params.each_with_index do |param, i|
       ARGV[i] = param
+    end
+  end
+
+  def create_secret_yml(key: nil)
+    File.open(File.expand_path('./config/encryption.yml'), 'w') do |f|
+      f.write "---\nSECRET_KEY: #{key}"
     end
   end
 end

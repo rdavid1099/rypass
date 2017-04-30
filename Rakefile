@@ -14,6 +14,7 @@ namespace :test do
 
   desc 'Run RyPass in test environment'
   task :rypass do
+    ENV['test'] = 'true'
     PATH = File.expand_path('.')
     require './config/setup'
     print '$rypass '
@@ -32,6 +33,18 @@ namespace :test do
     rescue Interrupt
       puts "\nThank you for using RyPass"
       exit
+    end
+  end
+end
+
+namespace :update do
+  desc 'Update passwords to account for encryption'
+  task :passwords, [:destination] do |t, args|
+    PATH = File.expand_path('~/RyPassSource')
+    require './config/setup'
+    destination = File.expand_path(args[:destination] || '~/Library/RyPass')
+    Dir.glob("#{destination}/*.csv").each do |file|
+      FileIt.update_encryption(file)
     end
   end
 end
