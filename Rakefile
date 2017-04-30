@@ -36,3 +36,15 @@ namespace :test do
     end
   end
 end
+
+namespace :update do
+  desc 'Update passwords to account for encryption'
+  task :passwords, [:destination] do |t, args|
+    PATH = File.expand_path('~/RyPassSource')
+    require './config/setup'
+    destination = File.expand_path(args[:destination] || '~/Library/RyPass')
+    Dir.glob("#{destination}/*.csv").each do |file|
+      FileIt.update_encryption(file)
+    end
+  end
+end

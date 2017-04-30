@@ -58,6 +58,23 @@ class FileIt
     Dir["#{destination}/*.csv"].include?("#{destination}/#{account}.csv")
   end
 
+  def self.update_encryption(file)
+    encrypt = Encryption.new
+    data = []
+    CSV.foreach(file, headers: true) do |row|
+      data << [row[0], row[1]] unless row[0] == 'username'
+    end
+
+    CSV.open(file, 'wb') do |csv|
+      csv << ['username', 'password', 'nonce']
+      data.each do |row|
+        csv << [row[0],
+                encrypt.encrypt_password(row[1]),
+                encrypt.nonce]
+      end
+    end
+  end
+
   private
     attr_reader :encrypt
 
