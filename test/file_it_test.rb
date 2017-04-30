@@ -5,6 +5,10 @@ class FileItTest < TestHelper
     @file = setup_test[:file]
   end
 
+  def encrypt(password)
+    @file.send(:encrypt).encrypt_password(password)
+  end
+
   def test_it_saves_new_information_as_csv
     file_io_test
     @file.save(account: 'test', username: 'test@test.com', password: 'password')
@@ -12,7 +16,8 @@ class FileItTest < TestHelper
     clean_test_csvs
 
     assert_equal csv[:username], ['test@test.com']
-    assert_equal csv[:password], ['password']
+    assert_equal csv[:password], [encrypt('password')]
+    assert_equal csv[:nonce], [@file.send(:encrypt).nonce]
   end
 
   def test_it_updates_existing_username_with_new_password
@@ -24,7 +29,7 @@ class FileItTest < TestHelper
     clean_test_csvs
 
     assert_equal csv[:username], ['thistest@test.com', 'test@test.com']
-    assert_equal csv[:password], ['password', 'newpassword']
+    assert_equal csv[:password], [encrypt('password'), encrypt('newpassword')]
   end
 
   def test_it_removes_existing_username_and_password
@@ -36,7 +41,7 @@ class FileItTest < TestHelper
     clean_test_csvs
 
     assert_equal csv[:username], ['thistest@test.com']
-    assert_equal csv[:password], ['thispassword']
+    assert_equal csv[:password], [encrypt('thispassword')]
     assert_equal result, true
   end
 
