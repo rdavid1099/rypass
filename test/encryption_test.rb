@@ -5,10 +5,6 @@ class EncryptionTest < TestHelper
     @encrypt = setup_test[:encrypt]
   end
 
-  def teardown
-    clean_secret_yml
-  end
-
   def test_it_can_load_secret_key
     assert_equal @encrypt.send(:secret_key), @encrypt.send(:load_secret_key)
   end

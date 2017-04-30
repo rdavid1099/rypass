@@ -28,7 +28,7 @@ class Encryption
 
     def load_secret_key
       begin
-        encrypted_key = YAML.load_file(File.expand_path("#{PATH}/config/encryption.yml"))['SECRET_KEY']
+        encrypted_key = YAML.load_file(ENV['ENCRYPT_PATH'])['SECRET_KEY']
         Base64.decode64(encrypted_key)
       rescue => e
         false
@@ -37,7 +37,7 @@ class Encryption
 
     def generate_secret_key
       key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
-      File.open(File.expand_path("#{PATH}/config/encryption.yml"), 'w') do |f|
+      File.open(ENV['ENCRYPT_PATH'], 'w') do |f|
         f.write "---\nSECRET_KEY: #{Base64.encode64(key)}"
       end
       key

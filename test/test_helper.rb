@@ -7,12 +7,14 @@ unless ENV['s']
 else
   puts "\nNOTE: Coverage not tracked unless running 'rake test:all'\n"
 end
-
-PATH = File.expand_path('.')
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-Dir.glob("#{PATH}/lib/*.rb").each { |file| require "#{file.sub('.rb','')}" }
+
+PATH = File.expand_path('.')
+ENV['test'] = 'true'
+FileUtils::mkdir_p "#{PATH}/tmp/config" unless File.exists?("#{PATH}/tmp/config")
+require './config/setup'
 
 class TestHelper < Minitest::Test
   def setup_test
@@ -59,9 +61,5 @@ class TestHelper < Minitest::Test
     File.open(File.expand_path('./config/encryption.yml'), 'w') do |f|
       f.write "---\nSECRET_KEY: #{key}"
     end
-  end
-
-  def clean_secret_yml
-    `rm #{File.expand_path('./config/encryption.yml')}`
   end
 end
