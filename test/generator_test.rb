@@ -5,6 +5,10 @@ class GeneratorTest < TestHelper
     @gen = setup_test[:gen]
   end
 
+  def encrypt(password)
+    @gen.send(:file_it).send(:encrypt).encrypt_password(password)
+  end
+
   def test_it_generates_a_random_password_of_default_12_chars
     password = @gen.generate_password
 
@@ -22,6 +26,6 @@ class GeneratorTest < TestHelper
     clean_test_csvs
 
     assert_equal csv[:username], ['test@test.com']
-    assert_equal csv[:password], [meta_data[:password]]
+    assert_equal csv[:password], [encrypt(meta_data[:password])]
   end
 end
