@@ -14,6 +14,7 @@ namespace :test do
 
   desc 'Run RyPass in test environment'
   task :rypass do
+    ENV['test'] = 'true'
     PATH = File.expand_path('.')
     require './config/setup'
     print '$rypass '
