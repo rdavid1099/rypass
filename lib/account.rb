@@ -36,7 +36,9 @@ class Account
   def get_password
     @username ||= get_username
     if raw_data.keys.include?(@username)
-      Message::Statement.display_password(raw_data[@username])
+      encrypt = Encryption.new(raw_data[@username].last)
+      password = encrypt.decrypt_password(raw_data[@username].first)
+      Message::Statement.display_password(password)
     else
       raise RuntimeError, Message::Error.username_not_found(@username)
     end
@@ -46,7 +48,7 @@ class Account
   #
   # @return [String] all usernames and passwords attached to account
   def all
-    Message::Statement.display_all_account_data(raw_data.to_a)
+    Message::Statement.display_all_account_data(raw_data_to_a)
   end
 
   private
@@ -56,10 +58,16 @@ class Account
       if sanitize!(Dir["#{destination}/*.csv"]).include?("#{destination}/#{account}.csv")
         @raw_data = {}
         CSV.foreach("#{destination}/#{account}.csv", headers: true) do |row|
-          @raw_data[row[0]] = row[1] unless row[0] == 'username'
+          @raw_data[row[0]] = [row[1], row[2]] unless row[0] == 'username'
         end
       else
         raise RuntimeError, "Account '#{account}' not found in directory '#{destination}'"
+      end
+    end
+
+    def raw_data_to_a
+      raw_data.reduce([]) do |result, data|
+        result << [data[0], Encryption.new(data[1][1]).decrypt_password(data[1][0])]
       end
     end
 

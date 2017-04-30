@@ -12,3 +12,4 @@
 
 # Test csv created by FileIO tests
 /tmp/
+/config/encryption.yml
