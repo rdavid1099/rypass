@@ -4,6 +4,8 @@ RyPass - Password Generator
 ### Description
 RyPass is a Terminal-based application that generates and stores passwords for multiple usernames on different accounts. All sensitive information is stored locally and can be accessed anytime using basic RyPass terminal commands.
 
+To utilize the same password generation, encryption and decryption logic in your Ruby project, be sure to checkout the gem [Passr](https://github.com/rdavid1099/passr).
+
 ### Setup
   - Clone down this repository.
   - `cd` into the rypass directory and run `./config/install.sh`
